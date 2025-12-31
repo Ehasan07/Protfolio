@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 0 229 255;
+    /* Neon Cyan #00E5FF */
+    --secondary: 124 77 255;
+    /* Electric Purple #7C4DFF */
+  }
+
+  body {
+    @apply bg-background text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-primary;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply backdrop-blur-md bg-glass-content border border-glass-border shadow-lg;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+  }
+
+  .text-glow-purple {
+    text-shadow: 0 0 20px rgba(124, 77, 255, 0.5);
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
