@@ -13,7 +13,8 @@ import {
     Brain,
     MousePointer,
     FlaskConical,
-    ShieldCheck
+    ShieldCheck,
+    MessageCircle
 } from "lucide-react";
 
 export const personalInfo = {
@@ -25,6 +26,7 @@ export const personalInfo = {
     phone: "+880 1782793008",
     location: "Dhaka, Bangladesh",
     siteUrl: "https://ehasanlive.com",
+    digitalCard: "https://mycard.dupno.com/card/shiplu07/",
     resumeUrl: "/resume.pdf",
     socials: [
         {
@@ -33,9 +35,19 @@ export const personalInfo = {
             icon: Github,
         },
         {
+            name: "WhatsApp",
+            url: "https://wa.me/8801782793008",
+            icon: MessageCircle,
+        },
+        {
             name: "LinkedIn",
             url: "https://www.linkedin.com/in/ehasan-shiplu-533748317/",
             icon: Linkedin,
+        },
+        {
+            name: "Digital Card",
+            url: "https://mycard.dupno.com/card/shiplu07/",
+            icon: Smartphone, // Using Smartphone icon for Digital Card
         },
         {
             name: "Email",
@@ -190,7 +202,7 @@ export const projects = [
         featured: false,
     },
     {
-        id: 5,
+        id: 6,
         title: "Dynamic Table Filter",
         description: "Advanced client-side table filtering logic capable of handling complex datasets efficiently.",
         tech: ["JavaScript", "DOM Manipulation"],
@@ -201,7 +213,7 @@ export const projects = [
         featured: false,
     },
     {
-        id: 6,
+        id: 7,
         title: "Payment Gateway UI",
         description: "A secure-feeling, modern payment prototype interface with validation animations.",
         tech: ["HTML", "CSS", "JavaScript"],

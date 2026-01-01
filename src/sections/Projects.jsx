@@ -41,8 +41,8 @@ const Projects = () => {
                             key={cat.id}
                             onClick={() => setFilter(cat.id)}
                             className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${filter === cat.id
-                                    ? "bg-primary text-background font-bold shadow-lg scale-105"
-                                    : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
+                                ? "bg-primary text-background font-bold shadow-lg scale-105"
+                                : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
                                 }`}
                         >
                             {cat.label}
@@ -53,7 +53,7 @@ const Projects = () => {
 
             <motion.div
                 layout
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]"
             >
                 <AnimatePresence mode="popLayout">
                     {filteredProjects.map((project, index) => (

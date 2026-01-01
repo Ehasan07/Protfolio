@@ -43,7 +43,7 @@ const About = () => {
             </div>
 
 
-            <div className="hidden lg:block w-1/3 p-4 relative group">
+            <div className="w-full max-w-sm mx-auto md:w-1/3 p-4 relative group order-first md:order-last">
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 blur-3xl animate-pulse-slow z-0" />
                 <motion.div
                     initial={{ opacity: 0, scale: 0.5 }}

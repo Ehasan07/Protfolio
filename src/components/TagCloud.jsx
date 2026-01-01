@@ -6,9 +6,23 @@ const TagCloud = ({ tags, minSpeed = 0.5, maxSpeed = 2 }) => {
     const requestRef = useRef();
     const mouseRef = useRef({ x: 0, y: 0 });
 
-    const radius = 200; // Radius of the sphere
+    const [radius, setRadius] = useState(200);
 
-    // Generate initial positions on a sphere (Fibonacci Sphere algorithm for even distribution)
+    // Responsive Radius
+    useEffect(() => {
+        const handleResize = () => {
+            const width = window.innerWidth;
+            if (width < 500) setRadius(140);
+            else if (width < 768) setRadius(170);
+            else setRadius(220);
+        };
+
+        handleResize(); // Init
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // Generate initial positions on a sphere
     const items = useMemo(() => {
         const phi = Math.PI * (3 - Math.sqrt(5)); // Golden angle
         return tags.map((tag, i) => {
@@ -21,7 +35,7 @@ const TagCloud = ({ tags, minSpeed = 0.5, maxSpeed = 2 }) => {
 
             return { tag, x: x * radius, y: y * radius, z: z * radius };
         });
-    }, [tags]);
+    }, [tags, radius]);
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -85,7 +99,7 @@ const TagCloud = ({ tags, minSpeed = 0.5, maxSpeed = 2 }) => {
     return (
         <div
             ref={containerRef}
-            className="relative w-[400px] h-[400px] mx-auto flex items-center justify-center perspective-[1000px] touch-none"
+            className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] mx-auto flex items-center justify-center perspective-[1000px] touch-none"
         >
             {items.map((item, i) => {
                 const style = getTransform(item, rotation);
