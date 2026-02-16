@@ -10,7 +10,7 @@ const Footer = () => {
 
                 <div className="flex items-center gap-2">
                     <div className="p-1.5 bg-primary/10 rounded-lg">
-                        <Code2 className="w-5 h-5 text-primary" />
+                        <img src="/logo.png" alt="Logo" className="w-5 h-5 object-contain" />
                     </div>
                     <span className="text-lg font-heading font-bold tracking-tight text-white">
                         Ehasan<span className="text-primary">live</span>

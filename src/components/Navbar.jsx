@@ -40,12 +40,14 @@ const Navbar = () => {
                     duration={500}
                     className="cursor-pointer flex items-center gap-2 group"
                 >
-                    <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                        <Code2 className="w-6 h-6 text-primary" />
+                    <div className="flex items-center gap-2 group">
+                        <div className="relative w-10 h-10 rounded-lg overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                        </div>
+                        <span className="text-xl font-heading font-bold tracking-tight text-white">
+                            Ehasan<span className="text-primary">live</span>
+                        </span>
                     </div>
-                    <span className="text-xl font-heading font-bold tracking-tight text-white">
-                        Ehasan<span className="text-primary">live</span>
-                    </span>
                 </Link>
 
                 {/* Desktop Nav */}

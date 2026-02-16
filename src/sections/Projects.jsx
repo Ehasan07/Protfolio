@@ -30,7 +30,7 @@ const Projects = () => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 className="mb-14 text-center md:text-left"
             >
                 <p className="text-primary font-medium tracking-wider uppercase mb-2">{t.projects.intro}</p>
@@ -55,7 +55,7 @@ const Projects = () => {
                 layout
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]"
             >
-                <AnimatePresence mode="popLayout">
+                <AnimatePresence>
                     {filteredProjects.map((project, index) => (
                         <motion.div
                             layout

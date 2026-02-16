@@ -100,13 +100,13 @@ export const skills = [
 export const education = [
     {
         id: 1,
-        degree: "Bachelor of Science",
-        degree_bn: "ব্যাচেলর অফ সায়েন্স (বি.এসসি)",
+        degree: "Bachelor of Science (Running)",
+        degree_bn: "ব্যাচেলর অফ সায়েন্স (চলমান)",
         major: "Computer Science & Engineering",
         major_bn: "কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং",
-        institution: "Daffodil International Professional Training Institute",
-        institution_bn: "ড্যাফোডিল ইন্টারন্যাশনাল প্রফেশনাল ট্রেনিং ইনস্টিটিউট",
-        period: "2019 - 2023",
+        institution: "Daffodil Institute of IT",
+        institution_bn: "ড্যাফোডিল ইনস্টিটিউট অফ আইটি",
+        period: "2023 - Present",
         description: "Built a strong foundation in algorithms, data structures, and software engineering principles.",
         description_bn: "অ্যালগরিদম, ডেটা স্ট্রাকচার এবং সফটওয়্যার ইঞ্জিনিয়ারিং প্রিন্সিপালগুলিতে শক্তিশালী ভিত্তি গড়ে তুলেছি।",
         courses: ["Data Structures", "Algorithms", "OOP", "Database Systems", "Web Engineering"],
