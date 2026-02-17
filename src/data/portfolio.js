@@ -139,6 +139,19 @@ export const experience = [
 
 export const projects = [
     {
+        id: 8,
+        title: "Personal Portfolio",
+        title_bn: "ব্যক্তিগত পোর্টফোলিও",
+        description: "My official professional portfolio. Features a custom AI chatbot (Fabrito), dynamic theming, and high-performance animations.",
+        description_bn: "আমার অফিসিয়াল পার্সোনাল পোর্টফোলিও। এতে রয়েছে কাস্টম এইআই চ্যাটবট (ফ্যাব্রিটো), ডাইনামিক থিম এবং উচ্চ-ক্ষমতাসম্পন্ন অ্যানিমেশন।",
+        tech: ["React", "Vite", "Tailwind", "Framer Motion"],
+        link: "https://github.com/Ehasan07/Protfolio",
+        live: "https://ehasanlive.com",
+        icon: Globe,
+        color: "from-cyan-500 to-blue-500",
+        featured: true,
+    },
+    {
         id: 1,
         title: "MY-Card (SaaS)",
         title_bn: "মাই-কার্ড (SaaS)",

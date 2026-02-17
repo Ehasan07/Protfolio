@@ -13,7 +13,12 @@
   }
 
   body {
-    @apply bg-background text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-primary;
+    @apply bg-[#030014] text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-primary;
+    background-image:
+      radial-gradient(circle at 50% 0%, #1a103c 0%, #030014 70%),
+      radial-gradient(circle at 80% 20%, #2c0e3a 0%, transparent 30%),
+      radial-gradient(circle at 20% 80%, #0f172a 0%, transparent 30%);
+    background-attachment: fixed;
   }
 
   h1,
