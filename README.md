@@ -1,3 +1,9 @@
+<!-- banner -->
+<p align="center"><img src=".github/assets/banner.png" alt="ehasanlive.com" width="100%"></p>
+
+<p align="center"><a href="https://ehasanlive.com"><b>Live: ehasanlive.com</b></a> · <a href="#features">Features</a></p>
+<!-- /banner -->
+
 # My Portfolio - S M Ehasanul Haque
 
 This is the repository for my personal portfolio website, showcasing my skills, projects, and experience as a Full-Stack Web Developer.
