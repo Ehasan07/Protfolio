@@ -1,55 +1,235 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------ */
+/* Design tokens. Values are bare "R G B" so Tailwind can add alpha.   */
+/* ------------------------------------------------------------------ */
 @layer base {
-  :root {
-    --primary: 0 229 255;
-    /* Neon Cyan #00E5FF */
-    --secondary: 124 77 255;
-    /* Electric Purple #7C4DFF */
+  :root,
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --bg: 10 17 16;
+    --elev: 15 24 23;
+    --surface: 22 34 32;
+    --fg: 240 236 227;
+    --muted: 150 164 159;
+    --line: 240 236 227;
+    --primary: 52 201 172;
+    --accent: 233 182 82;
+    --odoo: 192 138 178;
+    --on-primary: 5 20 18;
+    --grain-opacity: 0.05;
+  }
+
+  [data-theme="light"] {
+    color-scheme: light;
+    --bg: 246 243 236;
+    --elev: 255 255 255;
+    --surface: 236 232 222;
+    --fg: 16 32 30;
+    --muted: 82 98 94;
+    --line: 16 32 30;
+    --primary: 10 122 108;
+    --accent: 160 106 10;
+    --odoo: 135 90 123;
+    --on-primary: 255 255 255;
+    --grain-opacity: 0.035;
+  }
+
+  /* Accent presets (Settings → Accent). Emerald is the default above. */
+  [data-accent="gold"] { --primary: 233 182 82; --accent: 52 201 172; --on-primary: 26 18 2; }
+  [data-theme="light"][data-accent="gold"] { --primary: 160 106 10; --accent: 10 122 108; --on-primary: 255 255 255; }
+  [data-accent="ocean"] { --primary: 96 186 255; --on-primary: 3 16 28; }
+  [data-theme="light"][data-accent="ocean"] { --primary: 3 105 161; --on-primary: 255 255 255; }
+  [data-accent="violet"] { --primary: 172 146 252; --on-primary: 16 8 36; }
+  [data-theme="light"][data-accent="violet"] { --primary: 109 40 217; --on-primary: 255 255 255; }
+  [data-accent="rose"] { --primary: 251 120 140; --on-primary: 36 5 12; }
+  [data-theme="light"][data-accent="rose"] { --primary: 190 18 60; --on-primary: 255 255 255; }
+
+  html {
+    /* framer-motion measures scroll offsets relative to <html> */
+    position: relative;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 88px;
   }
 
   body {
-    @apply bg-[#030014] text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-primary;
-    background-image:
-      radial-gradient(circle at 50% 0%, #1a103c 0%, #030014 70%),
-      radial-gradient(circle at 80% 20%, #2c0e3a 0%, transparent 30%),
-      radial-gradient(circle at 20% 80%, #0f172a 0%, transparent 30%);
-    background-attachment: fixed;
+    @apply bg-bg text-fg font-sans antialiased;
+    /* clip, not hidden: hidden would make body a scroll container and break position: sticky */
+    overflow-x: clip;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-heading tracking-tight;
+  h1, h2, h3, h4 {
+    @apply font-display;
+    letter-spacing: -0.025em;
+    font-optical-sizing: auto;
+  }
+
+  html[lang="bn"] h1,
+  html[lang="bn"] h2,
+  html[lang="bn"] h3 {
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  html[lang="bn"] body {
+    line-height: 1.7;
+  }
+
+  /* Wide letter-spacing breaks Bengali conjuncts — keep labels tight in Bangla. */
+  html[lang="bn"] .eyebrow,
+  html[lang="bn"] .chip,
+  html[lang="bn"] .font-mono {
+    letter-spacing: 0.02em;
+  }
+
+  ::selection {
+    background: rgb(var(--primary) / 0.28);
+    color: rgb(var(--fg));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--primary));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: rgb(var(--bg)); }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--fg) / 0.14);
+    border-radius: 999px;
+    border: 2px solid rgb(var(--bg));
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--primary) / 0.5); }
+
+  img { user-select: none; }
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@layer components {
+  .eyebrow {
+    @apply font-mono text-[11px] sm:text-xs uppercase tracking-[0.22em] text-muted;
+  }
+
+  .card {
+    @apply relative rounded-3xl border border-line/10 bg-elev/70;
+    box-shadow: 0 1px 0 0 rgb(var(--fg) / 0.04) inset;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line/10 bg-surface/60 px-3 py-1 font-mono text-[11px] text-fg/80;
+  }
+
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-[background-color,color,box-shadow,transform] duration-300 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-on-primary hover:shadow-glow;
+  }
+  .btn-ghost {
+    @apply btn border border-line/15 bg-elev/40 text-fg backdrop-blur hover:border-primary/50 hover:bg-primary/10;
+  }
+
+  .icon-btn {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full text-fg/70 transition-colors hover:bg-fg/[0.06] hover:text-fg;
+  }
+
+  .field {
+    @apply w-full rounded-2xl border border-line/10 bg-surface/50 px-4 py-3.5 text-sm text-fg placeholder:text-muted/70 outline-none transition focus:border-primary/60 focus:bg-surface/80 focus:ring-4 focus:ring-primary/10;
   }
 }
 
 @layer utilities {
-  .glass {
-    @apply backdrop-blur-md bg-glass-content border border-glass-border shadow-lg;
+  .dot-grid {
+    background-image: radial-gradient(rgb(var(--fg) / 0.08) 1px, transparent 1px);
+    background-size: 22px 22px;
   }
 
-  .text-glow {
-    text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+  .text-gradient {
+    background-image: linear-gradient(100deg, rgb(var(--primary)) 0%, rgb(var(--primary)) 38%, rgb(var(--accent)) 50%, rgb(var(--primary)) 62%, rgb(var(--primary)) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  .text-glow-purple {
-    text-shadow: 0 0 20px rgba(124, 77, 255, 0.5);
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
   }
 
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+    mask-image: linear-gradient(180deg, #000 60%, transparent);
   }
 
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  /* Pointer-follow glow; --mx/--my are set by <SpotlightCard>. */
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--primary) / 0.12), transparent 45%);
   }
+  .spotlight:hover::before { opacity: 1; }
+
+  /* Gradient hairline border that lights up on hover */
+  .ring-gradient::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--primary) / 0.7), transparent 60%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .ring-gradient:hover::after { opacity: 1; }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+
+  .pause-on-hover:hover * { animation-play-state: paused; }
+}
+
+/* Film grain over everything — subtle texture, never blocks clicks */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
 }

@@ -1,46 +1,63 @@
 /** @type {import('tailwindcss').Config} */
+
+// Every color is a CSS variable (see src/index.css) so dark/light mode and the
+// accent presets only swap variables — no component ever hard-codes a palette.
+const token = (name) => `rgb(var(--${name}) / <alpha-value>)`;
+
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: { DEFAULT: "1.25rem", sm: "1.5rem", lg: "2rem" },
+      screens: { "2xl": "1240px" },
     },
     extend: {
       colors: {
-        background: "#030014", // Deep space dark
-        primary: "rgb(var(--primary) / <alpha-value>)",
-        secondary: "rgb(var(--secondary) / <alpha-value>)",
-        accent: "#F50057",     // Pink/Red accent for contrast
-        "glass-border": "rgba(255, 255, 255, 0.125)",
-        "glass-content": "rgba(255, 255, 255, 0.05)",
+        bg: token("bg"),
+        elev: token("elev"),
+        surface: token("surface"),
+        fg: token("fg"),
+        muted: token("muted"),
+        line: token("line"),
+        primary: token("primary"),
+        accent: token("accent"),
+        odoo: token("odoo"),
+        "on-primary": token("on-primary"),
       },
       fontFamily: {
-        heading: ['"Space Grotesk"', 'sans-serif'],
-        sans: ['"Inter"', 'sans-serif'],
+        display: ['"Bricolage Grotesque"', '"Anek Bangla"', "system-ui", "sans-serif"],
+        sans: ['"Geist"', '"Anek Bangla"', "system-ui", "sans-serif"],
+        mono: ['"Geist Mono"', "ui-monospace", "SFMono-Regular", '"Anek Bangla"', "monospace"],
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "mesh": "radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%)",
+      borderRadius: {
+        "4xl": "2rem",
       },
-      animation: {
-        "spin-slow": "spin 8s linear infinite",
-        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "float": "float 3s ease-in-out infinite",
+      boxShadow: {
+        glow: "0 0 0 1px rgb(var(--primary) / 0.25), 0 10px 40px -10px rgb(var(--primary) / 0.45)",
+        card: "0 1px 0 0 rgb(var(--fg) / 0.04) inset, 0 20px 50px -30px rgb(0 0 0 / 0.6)",
       },
       keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        }
-      }
+        marquee: { from: { transform: "translateX(0)" }, to: { transform: "translateX(-50%)" } },
+        orbit: { to: { transform: "rotate(360deg)" } },
+        "orbit-rev": { to: { transform: "rotate(-360deg)" } },
+        aurora: {
+          "0%, 100%": { transform: "translate3d(0,0,0) scale(1)" },
+          "33%": { transform: "translate3d(6%,-4%,0) scale(1.08)" },
+          "66%": { transform: "translate3d(-5%,5%,0) scale(0.95)" },
+        },
+        shimmer: { from: { backgroundPosition: "200% 0" }, to: { backgroundPosition: "-200% 0" } },
+        ping2: { "75%, 100%": { transform: "scale(2.2)", opacity: "0" } },
+      },
+      animation: {
+        marquee: "marquee var(--marquee-speed, 40s) linear infinite",
+        orbit: "orbit 40s linear infinite",
+        "orbit-rev": "orbit-rev 40s linear infinite",
+        aurora: "aurora 22s ease-in-out infinite",
+        shimmer: "shimmer 6s linear infinite",
+        ping2: "ping2 1.8s cubic-bezier(0,0,0.2,1) infinite",
+      },
     },
   },
   plugins: [],
-}
+};

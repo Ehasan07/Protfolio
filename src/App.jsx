@@ -1,75 +1,73 @@
-import { useState, useEffect } from "react";
-import Navbar from "./components/Navbar";
-import CanvasLoader from "./components/CanvasLoader";
+import { MotionConfig } from "framer-motion";
+import { SettingsProvider, useSettings } from "./context/SettingsContext";
+import { UIProvider } from "./context/UIContext";
+import BackgroundFX from "./components/layout/BackgroundFX";
+import SmoothScroll from "./components/layout/SmoothScroll";
+import ScrollProgress from "./components/layout/ScrollProgress";
+import Intro from "./components/layout/Intro";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import Toast from "./components/layout/Toast";
+import CommandPalette from "./components/CommandPalette";
+import SettingsPanel from "./components/SettingsPanel";
+import ProjectModal from "./components/work/ProjectModal";
+import ChatWidget from "./components/chat/ChatWidget";
 import Hero from "./sections/Hero";
+import TechMarquee from "./sections/TechMarquee";
 import About from "./sections/About";
 import Services from "./sections/Services";
+import Work from "./sections/Work";
 import Skills from "./sections/Skills";
-import Experience from "./sections/Experience";
-import Education from "./sections/Education";
-import Projects from "./sections/Projects";
+import Journey from "./sections/Journey";
 import Contact from "./sections/Contact";
-import Footer from "./components/Footer";
-import ChatWidget from "./components/ChatWidget";
-import ThemeSettings from "./components/ThemeSettings";
 
-import { LanguageProvider } from "./context/LanguageContext";
-
-function App() {
-  const [loading, setLoading] = useState(true);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    // Simulate initial loading
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollTop;
-      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scroll = `${totalScroll / windowHeight}`;
-      setScrollProgress(Number(scroll));
-    }
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="w-screen h-screen bg-background flex items-center justify-center">
-        <CanvasLoader />
-      </div>
-    );
-  }
+function Site() {
+  const { reducedMotion, t } = useSettings();
 
   return (
-    <LanguageProvider>
-      <div className="bg-background min-h-screen text-white relative overflow-x-hidden">
-        {/* Scroll Progress Bar */}
-        <div style={{ scaleX: scrollProgress }} className="fixed top-0 left-0 right-0 h-1 bg-primary origin-left z-50 shadow-[0_0_10px_var(--primary)]" />
+    <MotionConfig reducedMotion={reducedMotion ? "always" : "never"}>
+      <a
+        href="#about"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
+      >
+        {t.skip}
+      </a>
+      <Intro />
+      <SmoothScroll />
+      <ScrollProgress />
+      <BackgroundFX />
+      <Navbar />
 
-        <Navbar />
-
+      <main className="relative z-10">
         <Hero />
+        <TechMarquee />
+        <About />
+        <Services />
+        <Work />
+        <Skills />
+        <Journey />
+        <Contact />
+      </main>
 
-        <div className="space-y-24 pb-24">
-          <About />
-          <Services />
-          <Skills />
-          <Education />
-          <Experience />
-          <Projects />
-          <Contact />
-        </div>
-
+      <div className="relative z-10">
         <Footer />
-        <ChatWidget />
-        <ThemeSettings />
       </div>
-    </LanguageProvider>
+
+      <ChatWidget />
+      <ProjectModal />
+      <SettingsPanel />
+      <CommandPalette />
+      <Toast />
+    </MotionConfig>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <SettingsProvider>
+      <UIProvider>
+        <Site />
+      </UIProvider>
+    </SettingsProvider>
+  );
+}

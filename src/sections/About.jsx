@@ -1,66 +1,93 @@
 import { motion } from "framer-motion";
-import { useLanguage } from "../context/LanguageContext";
-import SectionWrapper from "../components/SectionWrapper";
-import profileImg from "../assets/profile.jpg";
+import { Briefcase, Coins, GraduationCap, Handshake, Languages, MapPin, Rocket, ShieldCheck } from "lucide-react";
+import SectionHeader from "../components/ui/SectionHeader";
+import SpotlightCard from "../components/ui/SpotlightCard";
+import Reveal from "../components/ui/Reveal";
+import { profile } from "../data/profile";
+import { useSettings } from "../context/SettingsContext";
 
-const About = () => {
-    const { t } = useLanguage();
+const FACT_ICONS = { base: MapPin, work: Briefcase, study: GraduationCap, lang: Languages, open: Handshake };
+const RULE_ICONS = { languages: Languages, coins: Coins, shield: ShieldCheck, rocket: Rocket };
 
-    return (
-        <div className="flex flex-col md:flex-row gap-10 items-center justify-between">
-            <div className="flex-1">
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
+export default function About() {
+  const { t, tr } = useSettings();
+
+  return (
+    <section id="about" className="relative py-20 sm:py-28">
+      <div className="container">
+        <SectionHeader index="01" eyebrow={t.about.eyebrow} title={t.about.title} />
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-[1.35fr_1fr]">
+          <Reveal className="card overflow-hidden p-7 sm:p-10">
+            <p className="font-display text-2xl font-medium leading-snug sm:text-3xl">
+              {tr(profile.headline)
+                .split(" ")
+                .map((w, i, arr) => (
+                  <span key={i} className={i >= arr.length - 2 ? "text-primary" : ""}>
+                    {w}{" "}
+                  </span>
+                ))}
+            </p>
+            <div className="mt-6 space-y-4 text-pretty leading-relaxed text-muted">
+              {profile.bio.map((p, i) => (
+                <p key={i}>{tr(p)}</p>
+              ))}
+            </div>
+            <blockquote className="mt-8 border-l-2 border-accent/70 pl-4 font-display text-lg italic text-fg/85">
+              “{tr(profile.quote)}”
+            </blockquote>
+          </Reveal>
+
+          <Reveal delay={0.1} className="card p-7 sm:p-8">
+            <h3 className="eyebrow mb-5">{t.about.facts}</h3>
+            <ul className="divide-y divide-line/10">
+              {profile.facts.map((f, i) => {
+                const Icon = FACT_ICONS[f.key];
+                return (
+                  <motion.li
+                    key={f.key}
+                    initial={{ opacity: 0, x: 16 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <p className="text-primary font-medium tracking-wider uppercase mb-2">
-                        {t.about.intro}
-                    </p>
-                    <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
-                        {t.about.overview}
-                    </h2>
-                    <p className="text-gray-400 text-lg leading-relaxed max-w-3xl">
-                        {t.about.bio}
-                    </p>
-                </motion.div>
-
-                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/30 transition-colors backdrop-blur-sm">
-                        <h3 className="text-xl font-bold mb-2 text-white">{t.about.frontendTitle}</h3>
-                        <p className="text-gray-400 text-sm">
-                            {t.about.frontendDesc}
-                        </p>
-                    </div>
-                    <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-secondary/30 transition-colors backdrop-blur-sm">
-                        <h3 className="text-xl font-bold mb-2 text-white">{t.about.backendTitle}</h3>
-                        <p className="text-gray-400 text-sm">
-                            {t.about.backendDesc}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-
-            <div className="w-full max-w-sm mx-auto md:w-1/3 p-4 relative group order-first md:order-last">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 blur-3xl animate-pulse-slow z-0" />
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="relative z-10 w-full aspect-[3/4] rounded-2xl overflow-hidden border-2 border-white/10 group-hover:border-primary/50 transition-colors"
-                >
-                    <img
-                        src={profileImg}
-                        alt="Profile"
-                        className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105"
-                    />
-                </motion.div>
-            </div>
+                    transition={{ delay: 0.15 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex items-center gap-4 py-3.5"
+                  >
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line/10 bg-surface/70 text-primary">
+                      <Icon className="h-[18px] w-[18px]" />
+                    </span>
+                    <span className="text-sm sm:text-[15px]">{tr(f)}</span>
+                  </motion.li>
+                );
+              })}
+            </ul>
+          </Reveal>
         </div>
-    );
-};
 
-export default SectionWrapper(About, "about");
+        <Reveal className="mb-6 mt-20 flex items-center gap-4">
+          <h3 className="font-display text-xl font-semibold sm:text-2xl">{t.about.rules}</h3>
+          <span className="h-px flex-1 bg-gradient-to-r from-line/20 to-transparent" />
+        </Reveal>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {profile.principles.map((rule, i) => {
+            const Icon = RULE_ICONS[rule.icon];
+            return (
+              <Reveal key={rule.icon} delay={i * 0.08}>
+                <SpotlightCard className="group h-full p-6">
+                  <div className="mb-10 flex items-start justify-between">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
+                      <Icon className="h-6 w-6" />
+                    </span>
+                    <span className="font-mono text-xs text-muted">0{i + 1}</span>
+                  </div>
+                  <h4 className="font-display text-lg font-semibold">{tr(rule.title)}</h4>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{tr(rule.text)}</p>
+                </SpotlightCard>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,83 +1,95 @@
 import { motion } from "framer-motion";
-import { skills } from "../data/portfolio";
-import SectionWrapper from "../components/SectionWrapper";
-import { useLanguage } from "../context/LanguageContext";
+import { SiOdoo } from "react-icons/si";
+import { Layers, Monitor, Plug, ServerCog } from "lucide-react";
+import SectionHeader from "../components/ui/SectionHeader";
+import SpotlightCard from "../components/ui/SpotlightCard";
+import Reveal from "../components/ui/Reveal";
+import TechIcon from "../components/ui/TechIcon";
+import { odooCapabilities, skillGroups } from "../data/skills";
+import { useSettings } from "../context/SettingsContext";
 
-import TagCloud from "../components/TagCloud";
+const GROUP_ICONS = { backend: Layers, frontend: Monitor, devops: ServerCog, integrations: Plug };
 
-const Skills = () => {
-    const { t } = useLanguage();
+function SkillPills({ items }) {
+  return (
+    <ul className="flex flex-wrap gap-2">
+      {items.map((name, i) => (
+        <motion.li
+          key={name}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.05 * i, duration: 0.4 }}
+          className="group/pill flex items-center gap-2 rounded-xl border border-line/10 bg-surface/60 px-3 py-2 text-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/[0.07]"
+        >
+          <TechIcon name={name} colored className="h-4 w-4 transition-transform duration-300 group-hover/pill:scale-125" />
+          {name}
+        </motion.li>
+      ))}
+    </ul>
+  );
+}
 
-    // Flatten all skills for the cloud
-    const cloudTags = skills.flatMap(group => group.items.map(s => s.name));
+export default function Skills() {
+  const { t, tr } = useSettings();
+  const [odoo, ...rest] = skillGroups;
 
-    return (
-        <div className="w-full">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-14 text-center"
-            >
-                <p className="text-primary font-medium tracking-wider uppercase mb-2">{t.skills.intro}</p>
-                <h2 className="text-4xl md:text-5xl font-heading font-bold">{t.skills.title}</h2>
-            </motion.div>
+  return (
+    <section id="skills" className="relative py-20 sm:py-28">
+      <div className="container">
+        <SectionHeader index="04" eyebrow={t.skills.eyebrow} title={t.skills.title} lead={t.skills.lead} />
 
-            <div className="flex flex-col lg:flex-row gap-12 items-center">
+        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Reveal className="md:col-span-2">
+            <SpotlightCard className="flex h-full flex-col p-6 sm:p-8">
+              <div className="flex items-center gap-3">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-odoo/15 text-odoo">
+                  <SiOdoo className="h-7 w-7" />
+                </span>
+                <h3 className="font-display text-xl font-semibold">{tr(odoo.title)}</h3>
+              </div>
+              <p className="mb-6 mt-4 max-w-md text-sm leading-relaxed text-muted">{tr(odoo.blurb)}</p>
+              <div className="mt-auto">
+                <SkillPills items={odoo.items} />
+              </div>
+            </SpotlightCard>
+          </Reveal>
 
-                {/* 3D Cloud - Visually imposing feature */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="flex-1 w-full flex justify-center order-1 lg:order-2"
-                >
-                    <TagCloud tags={cloudTags} />
-                </motion.div>
+          <Reveal delay={0.08} className="md:col-span-2">
+            <SpotlightCard className="h-full p-6 sm:p-8">
+              <h3 className="eyebrow mb-4">{t.skills.odoo}</h3>
+              <dl className="grid gap-x-6 sm:grid-cols-2">
+                {odooCapabilities.map((c) => (
+                  <div key={c.area.en} className="border-t border-line/10 py-3">
+                    <dt className="text-sm font-medium text-odoo">{tr(c.area)}</dt>
+                    <dd className="mt-1 text-[13px] leading-relaxed text-muted">{tr(c.detail)}</dd>
+                  </div>
+                ))}
+              </dl>
+            </SpotlightCard>
+          </Reveal>
 
-                {/* Skills Grid - Detailed Information */}
-                <div className="grid grid-cols-1 gap-8 flex-[1.5] w-full order-2 lg:order-1">
-                    {skills.map((skillGroup, index) => (
-                        <motion.div
-                            key={skillGroup.category}
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.2, duration: 0.6 }}
-                            className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-primary/30 transition-all"
-                        >
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                                    <skillGroup.icon className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-xl font-bold">{skillGroup.category === "Backend" ? t.skills.backend : skillGroup.category === "Frontend" ? t.skills.frontend : t.skills.tools}</h3>
-                            </div>
-
-                            <div className="space-y-4">
-                                {skillGroup.items.map((skill) => (
-                                    <div key={skill.name}>
-                                        <div className="flex justify-between mb-1">
-                                            <span className="text-gray-300 font-medium text-sm">{skill.name}</span>
-                                            <span className="text-gray-500 text-xs">{skill.level}%</span>
-                                        </div>
-                                        <div className="h-2 w-full bg-black/50 rounded-full overflow-hidden">
-                                            <motion.div
-                                                initial={{ width: 0 }}
-                                                whileInView={{ width: `${skill.level}%` }}
-                                                viewport={{ once: true }}
-                                                transition={{ duration: 1, delay: 0.5 }}
-                                                className="h-full bg-gradient-to-r from-primary to-secondary"
-                                            />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
+          {rest.map((g, i) => {
+            const Icon = GROUP_ICONS[g.id];
+            return (
+              <Reveal key={g.id} delay={0.08 * i}>
+                <SpotlightCard className="flex h-full flex-col p-6">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-line/10 bg-surface/70 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <h3 className="font-display text-lg font-semibold leading-tight">{tr(g.title)}</h3>
+                  </div>
+                  <p className="mb-6 mt-3 text-sm leading-relaxed text-muted">{tr(g.blurb)}</p>
+                  <div className="mt-auto">
+                    <SkillPills items={g.items} />
+                  </div>
+                </SpotlightCard>
+              </Reveal>
+            );
+          })}
         </div>
-    );
-};
-
-export default SectionWrapper(Skills, "skills");
+      </div>
+    </section>
+  );
+}

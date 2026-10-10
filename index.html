@@ -1,18 +1,87 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-accent="emerald">
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>S M Ehasanul Haque — Odoo &amp; Full-Stack Developer, Dhaka</title>
   <meta name="description"
-    content="Portfolio of S M Ehasanul Haque | ehasanlive.com - A premium showcase of a Full-Stack Web Developer specialized in React, Python, and Django." />
-  <meta name="theme-color" content="#030014" />
-  <title>Ehasan Live | S M Ehasanul Haque</title>
+    content="Ehasan builds business software for Bangladesh: Odoo 12 modules for DUPNO's vehicle-tracking operations and Bangla-first SaaS — Hajj Tracking, Taka Tracker, Trade ERP and MY-Card. Python, Django, Next.js, PostgreSQL." />
+  <meta name="author" content="S M Ehasanul Haque" />
+  <link rel="canonical" href="https://ehasanlive.com/" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0a1110" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ehasanlive.com/" />
+  <meta property="og:site_name" content="ehasanlive.com" />
+  <meta property="og:title" content="S M Ehasanul Haque — Odoo & Full-Stack Developer" />
+  <meta property="og:description"
+    content="Odoo modules, Bangla-first SaaS and full-stack web apps — built in Dhaka, shipped to real servers." />
+  <meta property="og:image" content="https://ehasanlive.com/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="S M Ehasanul Haque — Odoo & Full-Stack Developer" />
+  <meta name="twitter:description"
+    content="Odoo modules, Bangla-first SaaS and full-stack web apps — built in Dhaka, shipped to real servers." />
+  <meta name="twitter:image" content="https://ehasanlive.com/og-image.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400..700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist+Mono:wght@400..600&family=Geist:wght@300..700&display=swap"
+    rel="stylesheet" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "S M Ehasanul Haque",
+      "alternateName": "Ehasan",
+      "url": "https://ehasanlive.com",
+      "image": "https://ehasanlive.com/profile.webp",
+      "jobTitle": "Odoo & Full-Stack Developer",
+      "worksFor": { "@type": "Organization", "name": "DUPNO International", "url": "https://dupno.com" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Daffodil Institute of IT" },
+      "address": { "@type": "PostalAddress", "addressLocality": "Dhaka", "addressCountry": "BD" },
+      "email": "mailto:shiplulink2003@gmail.com",
+      "knowsAbout": ["Odoo", "Python", "Django", "PostgreSQL", "Next.js", "TypeScript", "React", "SaaS", "ERP"],
+      "sameAs": [
+        "https://github.com/Ehasan07",
+        "https://www.linkedin.com/in/ehasan-shiplu-533748317/",
+        "https://www.facebook.com/ehasan2003",
+        "https://mycard.dupno.com/card/shiplu07/"
+      ]
+    }
+  </script>
+
+  <!-- Apply saved appearance before first paint so the page never flashes the wrong theme -->
+  <script>
+    (function () {
+      try {
+        var s = JSON.parse(localStorage.getItem("ehasan:settings") || "{}");
+        var root = document.documentElement;
+        var theme = s.theme || "dark";
+        if (theme === "system") theme = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        root.dataset.theme = theme;
+        root.dataset.accent = s.accent || "emerald";
+        root.lang = s.lang || "en";
+      } catch (e) { }
+    })();
+  </script>
 </head>
 
 <body>
   <div id="root"></div>
+  <noscript>
+    <p style="padding:2rem;font-family:sans-serif">S M Ehasanul Haque — Odoo &amp; full-stack developer in Dhaka.
+      Email <a href="mailto:shiplulink2003@gmail.com">shiplulink2003@gmail.com</a>.</p>
+  </noscript>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 

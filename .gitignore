@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Cloudflare wrangler cache
+.wrangler
+
+# Local env (EmailJS keys)
+.env
