@@ -206,7 +206,7 @@ export const moreProjects = [
     category: "apps",
     image: "/work/protfolio.webp",
     summary: { en: "This site — bilingual, themeable, with a command palette and a chat assistant.", bn: "এই সাইটটি — দ্বিভাষিক, থিম বদলানো যায়, কমান্ড প্যালেট ও চ্যাট অ্যাসিস্ট্যান্টসহ।" },
-    stack: ["React", "Tailwind CSS", "Framer Motion"],
+    stack: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
     code: `${GH}/Protfolio`,
     live: "https://ehasanlive.com",
   },
