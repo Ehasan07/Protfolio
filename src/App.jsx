@@ -38,7 +38,7 @@ function Site() {
       <BackgroundFX />
       <Navbar />
 
-      <main className="relative z-10">
+      <main className="relative z-10 overflow-x-clip">
         <Hero />
         <TechMarquee />
         <About />
@@ -49,7 +49,7 @@ function Site() {
         <Contact />
       </main>
 
-      <div className="relative z-10">
+      <div className="relative z-10 overflow-x-clip">
         <Footer />
       </div>
 

@@ -35,7 +35,7 @@ export default function HeroPortrait() {
       initial={{ opacity: 0, scale: 0.92, y: 30 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 1.1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto w-[min(72vw,330px)] sm:w-[340px] lg:w-[360px]"
+      className="relative mx-auto w-[min(72vw,330px)] sm:w-[340px] lg:w-[300px] xl:w-[360px]"
       onPointerMove={onMove}
       onPointerLeave={onLeave}
       style={{ perspective: 1100 }}
@@ -109,7 +109,7 @@ export default function HeroPortrait() {
       <motion.div
         animate={reducedMotion ? undefined : { y: [0, -8, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-4 top-[14%] z-10 hidden rounded-2xl border border-line/10 bg-elev/90 px-3 py-2 shadow-card backdrop-blur sm:block lg:-left-10"
+        className="absolute -left-4 top-[14%] z-10 hidden rounded-2xl border border-line/10 bg-elev/90 px-3 py-2 shadow-card backdrop-blur sm:block xl:-left-10"
       >
         <p className="font-mono text-[10px] uppercase tracking-widest text-muted">Odoo 12</p>
         <p className="text-sm font-semibold">
@@ -119,7 +119,7 @@ export default function HeroPortrait() {
       <motion.div
         animate={reducedMotion ? undefined : { y: [0, 8, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute -right-3 top-[52%] z-10 hidden items-center gap-2 rounded-2xl border border-line/10 bg-elev/90 px-3 py-2 shadow-card backdrop-blur sm:flex lg:-right-8"
+        className="absolute -right-3 top-[52%] z-10 hidden items-center gap-2 rounded-2xl border border-line/10 bg-elev/90 px-3 py-2 shadow-card backdrop-blur sm:flex xl:-right-8"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping2 rounded-full bg-primary" />

@@ -112,14 +112,14 @@ function ProjectTile({ project }) {
         <h4 className="font-display text-base font-semibold">{project.title}</h4>
         <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted">{tr(project.summary)}</p>
         <StackChips items={project.stack} className="mt-4" />
-        <div className="mt-auto flex items-center gap-4 pt-5 text-sm">
+        <div className="mt-auto flex items-center gap-2 pt-3 text-sm">
           {project.code && (
-            <a href={project.code} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-fg/80 hover:text-primary">
+            <a href={project.code} target="_blank" rel="noreferrer" className="-ml-2 inline-flex min-h-[40px] items-center gap-1.5 rounded-full px-2 text-fg/80 hover:text-primary">
               <FaGithub className="h-4 w-4" /> {t.work.viewCode}
             </a>
           )}
           {project.live && (
-            <a href={project.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-fg/80 hover:text-primary">
+            <a href={project.live} target="_blank" rel="noreferrer" className="inline-flex min-h-[40px] items-center gap-1 rounded-full px-2 text-fg/80 hover:text-primary">
               {t.work.live} <ArrowUpRight className="h-4 w-4" />
             </a>
           )}

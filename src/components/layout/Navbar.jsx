@@ -49,7 +49,7 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        className="fixed inset-x-0 top-0 z-50"
+        className={`fixed inset-x-0 top-0 ${menuOpen ? "z-[80]" : "z-50"}`}
         animate={{ y: hidden && !menuOpen ? -96 : 0 }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
@@ -66,7 +66,7 @@ export default function Navbar() {
               <span className="transition-transform duration-500 group-hover:rotate-[60deg]">
                 <Logo className="h-9 w-9" />
               </span>
-              <span className="font-display text-[1.05rem] font-semibold tracking-tight">
+              <span className="font-display text-[1.05rem] font-semibold tracking-tight max-[374px]:hidden">
                 ehasan<span className="text-primary">live</span>
               </span>
             </a>
@@ -156,13 +156,14 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 flex flex-col bg-bg/95 px-6 pb-8 pt-28 backdrop-blur-xl lg:hidden"
+            data-lenis-prevent
+            className="fixed inset-0 z-[79] flex flex-col overflow-y-auto bg-bg/[0.97] px-6 pb-8 pt-24 backdrop-blur-xl lg:hidden"
             initial={{ clipPath: "circle(0% at calc(100% - 3rem) 2.5rem)" }}
             animate={{ clipPath: "circle(150% at calc(100% - 3rem) 2.5rem)" }}
             exit={{ clipPath: "circle(0% at calc(100% - 3rem) 2.5rem)" }}
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
           >
-            <ul className="flex flex-1 flex-col gap-1">
+            <ul className="mb-8 flex flex-1 flex-col gap-1">
               {NAV_SECTIONS.map((id, i) => (
                 <motion.li
                   key={id}
@@ -173,7 +174,7 @@ export default function Navbar() {
                   <a
                     href={`#${id}`}
                     onClick={go(id)}
-                    className={`flex items-baseline gap-4 border-b border-line/10 py-3.5 font-display text-4xl font-semibold ${
+                    className={`flex items-baseline gap-4 border-b border-line/10 py-3 font-display text-[clamp(1.75rem,6.5vh,2.25rem)] font-semibold ${
                       active === id ? "text-primary" : ""
                     }`}
                   >

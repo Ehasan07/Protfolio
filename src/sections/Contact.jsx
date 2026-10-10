@@ -105,19 +105,19 @@ export default function Contact() {
                       href={c.href}
                       target={c.href.startsWith("http") ? "_blank" : undefined}
                       rel="noreferrer"
-                      className="flex flex-1 items-center gap-4 rounded-2xl border border-line/10 bg-elev/60 p-3.5 transition-all hover:border-primary/40 hover:bg-primary/[0.06]"
+                      className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-line/10 bg-elev/60 p-3 sm:gap-4 sm:p-3.5 transition-all hover:border-primary/40 hover:bg-primary/[0.06]"
                     >
                       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-surface text-primary transition-transform group-hover:scale-105">
                         <SocialIcon id={c.id} className="h-[18px] w-[18px]" />
                       </span>
                       <span className="min-w-0 flex-1">
                         <span className="block text-xs text-muted">{c.label}</span>
-                        <span className="block truncate font-medium">{c.value}</span>
+                        <span className="block break-words font-medium">{c.value.replace("@", "@\u200b")}</span>
                       </span>
-                      <ArrowUpRight className="h-4 w-4 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                      <ArrowUpRight className="h-4 w-4 shrink-0 text-muted max-[374px]:hidden transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
                     </a>
                     {c.copy && (
-                      <button onClick={copyEmail} className="icon-btn h-[4.6rem] w-12 rounded-2xl border border-line/10 bg-elev/60" aria-label={t.contact.copy}>
+                      <button onClick={copyEmail} className="icon-btn h-auto w-11 shrink-0 self-stretch rounded-2xl border border-line/10 bg-elev/60" aria-label={t.contact.copy}>
                         <Copy className="h-4 w-4" />
                       </button>
                     )}
@@ -125,7 +125,7 @@ export default function Contact() {
                 ))}
               </ul>
 
-              <div className="mt-6 flex items-center gap-3 rounded-2xl border border-dashed border-line/15 p-4 text-sm text-muted">
+              <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl border border-dashed border-line/15 p-4 text-sm text-muted">
                 <Clock className="h-4 w-4 text-accent" />
                 {t.contact.localTime}: <span className="font-mono text-fg">{time}</span>
                 <span className="text-muted/70">GMT+6</span>
