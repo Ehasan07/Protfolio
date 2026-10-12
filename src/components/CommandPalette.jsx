@@ -17,7 +17,7 @@ import SocialIcon from "./ui/SocialIcon";
 import { useSettings } from "../context/SettingsContext";
 import { useUI } from "../context/UIContext";
 import { NAV_SECTIONS } from "../data/nav";
-import { moreProjects, odooModules, products } from "../data/projects";
+import { moreProjects, odooModules, products, projectFilters } from "../data/projects";
 import { profile, socials } from "../data/profile";
 import { lockScroll, scrollToId, unlockScroll } from "../lib/scroll";
 
@@ -63,9 +63,9 @@ function PaletteDialog({ close }) {
           ...moreProjects.map((m) => ({
             id: `m-${m.id}`,
             label: m.title,
-            hint: "GitHub ↗",
+            hint: tr(projectFilters.find((f) => f.id === m.category)?.label),
             icon: FolderGit2,
-            run: () => window.open(m.live ?? m.code, "_blank", "noopener"),
+            run: () => ui.openProject(m),
           })),
         ],
       },

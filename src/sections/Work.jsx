@@ -86,28 +86,28 @@ function OdooModules() {
 
 function ProjectTile({ project }) {
   const { t, tr } = useSettings();
+  const { openProject } = useUI();
+  const shots = project.gallery?.length ?? 1;
   return (
     <SpotlightCard className="group flex h-full flex-col overflow-hidden p-0">
-      <a href={project.live ?? project.code} target="_blank" rel="noreferrer" className="relative block overflow-hidden border-b border-line/10" tabIndex={-1}>
-        {project.image ? (
-          <img
-            src={project.image}
-            alt={`${project.title} — preview`}
-            loading="lazy"
-            width="1280"
-            height="640"
-            className="aspect-[2/1] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        ) : (
-          <div className="dot-grid relative grid aspect-[2/1] place-items-center bg-surface">
-            <div
-              className="absolute inset-0"
-              style={{ background: "radial-gradient(circle at 30% 30%, rgb(var(--primary) / 0.25), transparent 55%), radial-gradient(circle at 75% 70%, rgb(var(--accent) / 0.18), transparent 50%)" }}
-            />
-            <span className="relative font-display text-2xl font-semibold">{project.title}</span>
-          </div>
-        )}
-      </a>
+      <button
+        onClick={() => openProject(project)}
+        className="relative block overflow-hidden border-b border-line/10 text-left"
+        aria-label={`${t.work.caseStudy}: ${project.title}`}
+      >
+        <img
+          src={project.image}
+          alt={`${project.title} — preview`}
+          loading="lazy"
+          width="1280"
+          height="640"
+          className="aspect-[2/1] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <span className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 text-xs text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
+          <Maximize2 className="h-3.5 w-3.5" />
+          {shots > 1 ? shots : t.work.openImage}
+        </span>
+      </button>
       <div className="flex flex-1 flex-col p-5">
         <h4 className="font-display text-base font-semibold">{project.title}</h4>
         <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted">{tr(project.summary)}</p>

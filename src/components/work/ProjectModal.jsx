@@ -8,6 +8,7 @@ import { useSettings } from "../../context/SettingsContext";
 import { useUI } from "../../context/UIContext";
 import { lockScroll, unlockScroll } from "../../lib/scroll";
 import { localDigits } from "../../lib/digits";
+import { projectFilters } from "../../data/projects";
 
 // Case study for a product or Odoo module: gallery, summary, highlights, stack, links.
 function ModalBody({ project, onClose }) {
@@ -79,6 +80,9 @@ function ModalBody({ project, onClose }) {
               <span className="eyebrow text-odoo">Odoo 12 · DUPNO</span>
             ) : (
               project.kicker && <span className="eyebrow">{tr(project.kicker)} · {localDigits(project.year, lang)}</span>
+            )}
+            {project.category && (
+              <span className="eyebrow">{tr(projectFilters.find((f) => f.id === project.category)?.label)}</span>
             )}
             {project.status && <StatusBadge status={project.status} />}
           </div>

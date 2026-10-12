@@ -15,6 +15,10 @@ const host = (url) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 export default function ProductCard({ project, index, total, progress, stack }) {
   const { t, tr, lang } = useSettings();
   const { openProject } = useUI();
+  // Under the cover: up to two wide screenshots, plus a phone-shaped tile for a mobile one.
+  const extras = project.gallery.slice(1);
+  const phone = extras.find((src) => src.includes("-mobile"));
+  const wide = extras.filter((src) => src !== phone).slice(0, phone ? 1 : 2);
   const scale = useTransform(progress, [index / total, 1], [1, stack ? 1 - (total - index - 1) * 0.045 : 1]);
 
   return (
@@ -104,17 +108,25 @@ export default function ProductCard({ project, index, total, progress, stack }) 
                 </div>
               </div>
             </BrowserFrame>
-            {project.gallery.length > 1 && (
-              <div className="mt-3 grid grid-cols-2 gap-3">
-                {project.gallery.slice(1, 3).map((src) => (
+            {(wide.length > 0 || phone) && (
+              <div className="mt-3 flex h-28 gap-3 sm:h-32">
+                {wide.map((src) => (
                   <img
                     key={src}
                     src={src}
                     alt=""
                     loading="lazy"
-                    className="aspect-[16/10] w-full rounded-xl border border-line/10 object-cover object-top"
+                    className="h-full min-w-0 flex-1 rounded-xl border border-line/10 object-cover object-top"
                   />
                 ))}
+                {phone && (
+                  <img
+                    src={phone}
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-16 shrink-0 rounded-xl border border-line/10 object-cover object-top sm:w-[4.5rem]"
+                  />
+                )}
               </div>
             )}
           </button>
